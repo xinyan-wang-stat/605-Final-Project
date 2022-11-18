@@ -23,5 +23,5 @@ The purpose of this project is to perform a modern statistical analysis from the
 #### image
 - This contains images obtained from the code and analysis such as figures, tables, and plots.
 
-#### Executive Summary
-- The two-page document that summarizes the analysis including the introduction, data cleaning, model selection and diagnostics as well as the strengths and weaknesses of the model.
+#### Report
+- A report that summarizes the analysis including the introduction, data cleaning, model selection and diagnostics as well as the strengths and weaknesses of the model.
