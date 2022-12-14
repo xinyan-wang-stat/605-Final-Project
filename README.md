@@ -10,8 +10,6 @@ Team member:
 The purpose of this project is to perform a modern statistical analysis from the **Amazon Review** dataset. 
 
 ### Content
-#### data
-- This contains both raw and cleaned data sets we used in the analysis.
 
 #### code
 - This contains scripts for the analysis ranging from reading data, exploratory data analysis, data cleaning, data modeling to model diagnostics.
