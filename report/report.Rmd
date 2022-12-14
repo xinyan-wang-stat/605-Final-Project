@@ -1,0 +1,110 @@
+---
+title: "report"
+author: "Project 13"
+date: "`r Sys.Date()`"
+output: 
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+    css: style.css
+---
+
+> Yuanhao Geng, Xingrong Chen, Kaiyan Ma and Xinyan Wang
+
+# Introduction
+
+Amazon Customer Reviews are a rich source of information for academic researchers in Natural Language Processing. With the help of computing clusters, we are going to use this data to research multiple disciplines related to understanding customer product experiences.
+
+Our two main questions are: 
+For each product category,
+
+1.  What are the important topics in reviews?
+2.  Are there any differences between the ratings & comment lengths of the verified purchases and the unverified ones? 
+
+For the first question, we used the Latent Dirichlet Allocation (LDA) method to extract keywords. For the second one, we used the pairwise t-test to compare the differences. Our conclusions are:
+
+1. Different categories have different topic words.
+2. Ratings & length of comments on verified and unverified purchases are significantly different. 
+
+
+# Body
+
+## Data Description
+
+Our Amazon Customer Reviews Dataset is from https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset. Its size is 54GB. The description of its variables are as follows:
+
+| Name | Description | 
+|  --  | -- |  
+| customer_id, review_id, product_id | The unique ID of the customer, review, and the product they pertain to. | 
+| product_title, product_category | Title/Category of the product. | 
+| star_rating | The 1-5 star rating of the review. | 
+| verified_purchase | The review is on a verified purchase.|
+| review_body; review_date | The review text; The date the review was written. | 
+
+## Statistical Methods
+* Using the Latent Dirichlet Allocation method to extract important keywords from product reviews by product categories.
+* Using pairwise t-test to compare differences between the ratings & comment lengths of the verified purchases and the unverified ones. 
+
+
+## Computational steps	
+### 1. LDA model
+
+We follow the following computation steps: classifying the dataset according to the category of the product, then cleaning the data for each product's review_body attribute and removing the stop words, and finally calling sklearn LDA API. In this project, we set the number of topics num_components to 3, and we get the corresponding topic word list for each category, as shown in the results section. 
+
+There are 46 categories in the original data, and they vary widely in size. Because of the need to control that a single task does not consume too many cluster resources, we used a sampling method to limit the total capacity of the tables corresponding to categories that exceed 1G, i.e., each task processes a maximum of 1G. In the task, we submit a total of 46 jobs. Each job ran in about 12 to 13 minutes of the typical time, and the memory capacity and disk capacity were allocated to 4G and 2G.
+
+### 2. Two sample t-test and Covariance
+
+To process the review text, we first constructed a new column for the comment length. Then we separated each dataset into two groups by whether the review is on a verified purchase or not. After that we draw a sample of 1000 from both and conducted two sample t-test to see if the mean of star-rating and text length are different between two populations. Besides, we also checked the covariance between star-rating and text length for each product type. (The number of jobs: 37; The typical job time: 2.570723 mins; Memory: 1.35GB; Disk space: 4kb)
+
+
+## Results
+
+### 1. LDA model
+
+We chose 3 typical product categories, to demonstrate the results:
+
+|  |  Furniture |   Music  | Software  |
+| :- | -: | :-: | - |
+| Topic 1 | ['love', 'beautiful', 'rug', 'soft', 'colors', 'color', 'great'] |              ['great', 'cd', 'album', 'music']               | ['fun', 'awesome', 'game', 'love', 'easy', 'games', 'use']   |
+| Topic 2 |                           ['chair', 'great', 'good', 'easy'] | ['excellent', 'ok', 'expected', 'perfect', 'beautiful', 'classic', 'music'] | ['good', 'product', 'tax', 'norton', 'price', 'job', 'years'] |
+| Topic 3 | ['mattress', 'bed', 'comfortable', 'sleep', 'firm', 'awesome', 'foam'] | ['awesome', 'thank', 'best', 'cd', 'fast', 'shipping', 'received'] | ['great', 'works', 'product', 'worked', 'advertised', 'price', 'described'] |
+
+
+### 2. Two sample t-test and Covariance
+
+The p-values of the tests are far less than the significance level alpha = 0.05. We can conclude that both the mean star-rating and the average review length of the verified purchases are significantly different from unverified purchases. The covariance between star-rating and text length varies from the product type, for most of the products these two features have negative correlation: The more unsatisfied people are, the more they tend to complain in the reviews. But there are exceptions like baby products for which people wrote longer favorable evaluations.
+
+
+
+## Weakness
+
+The analysis approaches we used and the way we split our dataset determines that we will eventually bring in some weaknesses in our study.
+
+1. Splitting the data by categories causes some jobs to take longer time than others, so there is still room for improvement.
+
+2. The noticeable differences told by the T-test are only valid in a statistical sense and the factors we cannot control might implicitly influence our test results.
+
+3. The LDA model cannot capture the correlations, we probably miss some important points in the reviews.
+
+# Conclusion
+
+For the first question, we found that for different categories, the words in the themes differed, such as chair in Furniture and cd in Music, which reflected the validity of LDA. Coming to the second question, in all the categories we have analyzed, both ratings and length of comments on verified purchases are significantly different from unverified ones. However, we did not find any common patterns of covariance between ratings and text length across all categories.
+
+
+# Contributions
+
+| Member | Proposal | Coding | Presentation | Report |
+|  -  | - |  -  | -  | -|
+| Yuanhao Geng | 1 | 1 | 1 | 1 |
+| Xingrong Chen | 1 | 1 | 1 | 1 |
+| Kaiyan Ma | 1 | 1 | 1 | 1 |
+| Xinyan Wang | 1 | 1 | 1 | 1 |
+
+
+# Link to GitHub Repository
+
+https://github.com/xinyan-wang-stat/605-Final-Project
