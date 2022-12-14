@@ -82,17 +82,18 @@ The p-values of the tests are far less than the significance level alpha = 0.05.
 
 ## Weakness
 
-The analysis approaches we used and the way we split our dataset determines that we will eventually bring in some weaknesses in our study.
+The analysis approaches we used and the way we split our dataset bring some weaknesses in our study.
 
-1. Splitting the data by categories causes some jobs to take longer time than others, so there is still room for improvement.
+1. Splitting the data by categories makes some jobs take more time than others, so there is still room for efficiency improvement.
 
-2. The noticeable differences told by the T-test are only valid in a statistical sense and the factors we cannot control might implicitly influence our test results.
+2. As an observational study, the factors we cannot control might implicitly influence our test results.
 
-3. The LDA model cannot capture the correlations, we probably miss some important points in the reviews.
+3. The LDA model cannot capture the correlations, we probably miss some points in the reviews text.
 
 # Conclusion
 
-For the first question, we found that for different categories, the words in the themes differed, such as chair in Furniture and cd in Music, which reflected the validity of LDA. Coming to the second question, in all the categories we have analyzed, both ratings and length of comments on verified purchases are significantly different from unverified ones. However, we did not find any common patterns of covariance between ratings and text length across all categories.
+- In different product categories, we extracted different topic words from the review text, and the topic words reflect the theme of their product category. For example, the word chair is one of the topic words that belong to the Furniture category. 
+- In all the categories, both ratings and length of comments on verified purchases are significantly different from unverified ones. In addition, there are negative correlations between rating stars and review length in most categories.
 
 
 # Contributions
