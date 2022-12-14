@@ -12,7 +12,7 @@ The purpose of this project is to perform a modern statistical analysis from the
 ### Content
 
 #### code
-- This contains scripts for the analysis ranging from reading data, exploratory data analysis, data cleaning, data modeling to model diagnostics.
+- This contains scripts for the analysis ranging from reading data, exploratory data analysis to data modeling.
 
 #### report
 - This contains our report.
