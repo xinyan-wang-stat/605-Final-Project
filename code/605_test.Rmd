@@ -1,0 +1,74 @@
+---
+title: "605draft"
+author: "mky"
+date: "2022-12-08"
+output: html_document
+---
+
+```{r}
+library(readr)
+file_list <- list.files("./Amazon_review") 
+file_list <- paste0('./Amazon_review/',file_list)
+file_list
+
+summary(factor(df$verified_purchase))
+```
+```{r}
+
+set.seed(1234)
+
+start_time <- Sys.time()
+
+df <- read_tsv(file_list[3])
+df$review_length <- lengths(gregexpr("\\W+", df$review_body)) + 1 
+
+
+#star_rating
+res_st <- t.test(sample(df[df$verified_purchase=="Y",8]$star_rating,1000),sample(df[df$verified_purchase=="N",8]$star_rating,1000),paired = FALSE,)
+res_st
+
+#review length
+res_lg <- t.test(sample(df[df$verified_purchase=="Y",16]$review_length,1000),sample(df[df$verified_purchase=="N",16]$review_length,1000),paired = FALSE,)
+res_lg 
+
+#covariance
+cov <- cov(df$review_length[sample(1:nrow(df),1000)],df$star_rating[sample(1:nrow(df),1000)])
+cov
+
+
+end_time <- Sys.time()
+
+
+end_time - start_time
+gc()
+```
+
+
+```{r}
+set.seed(1234)
+
+start_time <- Sys.time()
+
+df <- read_tsv(file_list[5])
+df$review_length <- lengths(gregexpr("\\W+", df$review_body)) + 1 
+
+
+#star_rating
+res_st <- t.test(sample(df[df$verified_purchase=="Y",8]$star_rating,1000),sample(df[df$verified_purchase=="N",8]$star_rating,1000),paired = FALSE,)
+res_st
+
+#review length
+res_lg <- t.test(sample(df[df$verified_purchase=="Y",16]$review_length,1000),sample(df[df$verified_purchase=="N",16]$review_length,1000),paired = FALSE,)
+res_lg 
+
+#covariance
+cov <- cov(df$review_length[sample(1:nrow(df),1000)],df$star_rating[sample(1:nrow(df),1000)])
+cov
+
+
+end_time <- Sys.time()
+
+
+end_time - start_time
+gc()
+```
