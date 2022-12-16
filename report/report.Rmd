@@ -1,5 +1,5 @@
 ---
-title: "report"
+title: "Report"
 author: "Project 13"
 date: "`r Sys.Date()`"
 output: 
@@ -88,7 +88,7 @@ The analysis approaches we used and the way we split our dataset bring some weak
 
 2. As an observational study, the factors we cannot control might implicitly influence our test results.
 
-3. The LDA model cannot capture the correlations, we probably miss some points in the reviews text.
+3. The LDA model cannot capture the correlations, we probably miss some points in the review text.
 
 # Conclusion
 
